@@ -189,8 +189,6 @@ subroutine solve_problem_joint_gravmag(gpar, mpar, ipar, myrank, nbproc)
       do i = 1, 2
         if (SOLVE_PROBLEM(i) .and. ipar%beta(i) == 0.d0) then ! beta is the damping gradient weight.
           call model(i)%grid_full%deallocate()
-          ! Allocate one element to force the OS releasing the memory.
-          call model(i)%grid_full%allocate(1, 1, 1, myrank)
         endif
       enddo
     endif

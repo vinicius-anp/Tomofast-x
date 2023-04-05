@@ -111,6 +111,8 @@ end subroutine grid_allocate
 subroutine grid_deallocate(this)
   class(t_grid), intent(inout) :: this
 
+  integer :: ierr
+
   deallocate(this%X1)
   deallocate(this%X2)
   deallocate(this%Y1)
@@ -123,6 +125,21 @@ subroutine grid_deallocate(this)
   deallocate(this%k_)
 
   deallocate(this%ind)
+
+  !------------------------------------------------------------------------
+  ! Allocate one element to force the OS releasing the memory.
+  allocate(this%X1(1), source=0._CUSTOM_REAL, stat=ierr)
+  allocate(this%X2(1), source=0._CUSTOM_REAL, stat=ierr)
+  allocate(this%Y1(1), source=0._CUSTOM_REAL, stat=ierr)
+  allocate(this%Y2(1), source=0._CUSTOM_REAL, stat=ierr)
+  allocate(this%Z1(1), source=0._CUSTOM_REAL, stat=ierr)
+  allocate(this%Z2(1), source=0._CUSTOM_REAL, stat=ierr)
+
+  allocate(this%i_(1), source=0, stat=ierr)
+  allocate(this%j_(1), source=0, stat=ierr)
+  allocate(this%k_(1), source=0, stat=ierr)
+
+  allocate(this%ind(1, 1, 1), source=0, stat=ierr)
 
 end subroutine grid_deallocate
 
