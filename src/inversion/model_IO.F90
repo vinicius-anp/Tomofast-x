@@ -181,7 +181,7 @@ subroutine read_model_grid(grid, nmodel_components, file_name, myrank)
   endif ! myrank == 0
 
   ! Broadcast full grid to all CPUs.
-  call grid%broadcast(myrank)
+  !call grid%broadcast(myrank)
 
 end subroutine read_model_grid
 

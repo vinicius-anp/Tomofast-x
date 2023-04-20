@@ -188,7 +188,7 @@ subroutine solve_problem_joint_gravmag(gpar, mpar, ipar, myrank, nbproc)
     if (ipar%cross_grad_weight == 0.d0) then
       do i = 1, 2
         if (SOLVE_PROBLEM(i) .and. ipar%beta(i) == 0.d0) then ! beta is the damping gradient weight.
-          call model(i)%grid_full%deallocate()
+          !call model(i)%grid_full%deallocate()
         endif
       enddo
     endif

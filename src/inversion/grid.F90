@@ -88,18 +88,20 @@ subroutine grid_allocate(this, nx, ny, nz, myrank)
 
   ierr = 0
 
-  allocate(this%X1(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
-  allocate(this%X2(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
-  allocate(this%Y1(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
-  allocate(this%Y2(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
-  allocate(this%Z1(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
-  allocate(this%Z2(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
+  if (myrank == 0) then
+    allocate(this%X1(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
+    allocate(this%X2(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
+    allocate(this%Y1(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
+    allocate(this%Y2(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
+    allocate(this%Z1(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
+    allocate(this%Z2(nelements_total), source=0._CUSTOM_REAL, stat=ierr)
 
-  allocate(this%i_(nelements_total), source=0, stat=ierr)
-  allocate(this%j_(nelements_total), source=0, stat=ierr)
-  allocate(this%k_(nelements_total), source=0, stat=ierr)
+    allocate(this%i_(nelements_total), source=0, stat=ierr)
+    allocate(this%j_(nelements_total), source=0, stat=ierr)
+    allocate(this%k_(nelements_total), source=0, stat=ierr)
 
-  allocate(this%ind(nx, ny, nz), source=0, stat=ierr)
+    allocate(this%ind(nx, ny, nz), source=0, stat=ierr)
+  endif
 
   if (ierr /= 0) call exit_MPI("Dynamic memory allocation error in grid_initialize!", myrank, ierr)
 
